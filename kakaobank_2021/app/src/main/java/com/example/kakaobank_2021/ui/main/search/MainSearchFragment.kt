@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.kakaobank_2021.R
+import com.example.kakaobank_2021.ui.main.storage.MainStorageFragment
 
 class MainSearchFragment : Fragment() {
 
@@ -14,18 +15,18 @@ class MainSearchFragment : Fragment() {
         fun newInstance() = MainStorageFragment()
     }
 
-    private lateinit var viewModel: MainSearchFragment
+    private lateinit var viewModel: MainSearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.main_search_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainSearchFragment::class.java)
+        viewModel = ViewModelProvider(this).get(MainSearchViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
