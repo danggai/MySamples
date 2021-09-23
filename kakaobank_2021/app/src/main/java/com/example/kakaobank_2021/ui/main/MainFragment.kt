@@ -14,6 +14,7 @@ import com.example.kakaobank_2021.databinding.MainFragmentBinding
 import com.example.kakaobank_2021.ui.main.search.MainSearchFragment
 import com.example.kakaobank_2021.ui.main.storage.MainStorageFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainFragment : Fragment() {
 
@@ -34,7 +35,7 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = getViewModel()
 
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner

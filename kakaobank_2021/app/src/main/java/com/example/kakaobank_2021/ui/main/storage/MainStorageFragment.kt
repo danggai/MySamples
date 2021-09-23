@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.kakaobank_2021.R
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainStorageFragment : Fragment() {
 
@@ -25,7 +26,7 @@ class MainStorageFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainStorageViewModel::class.java)
+        viewModel = getViewModel()
         // TODO: Use the ViewModel
     }
 

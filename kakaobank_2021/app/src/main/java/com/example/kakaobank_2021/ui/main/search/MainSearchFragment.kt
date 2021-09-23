@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.kakaobank_2021.R
 import com.example.kakaobank_2021.ui.main.storage.MainStorageFragment
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainSearchFragment : Fragment() {
 
@@ -26,7 +27,7 @@ class MainSearchFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainSearchViewModel::class.java)
+        viewModel = getViewModel()
         // TODO: Use the ViewModel
     }
 

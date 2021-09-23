@@ -1,5 +1,6 @@
 package com.example.kakaobank_2021
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.kakaobank_2021.di.NetworkModule
@@ -8,21 +9,25 @@ import com.example.kakaobank_2021.di.repositoryModule
 import com.example.kakaobank_2021.ui.main.MainFragment
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
-import org.koin.androidx.workmanager.koin.workManagerFactory
+import org.koin.core.KoinExperimentalAPI
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
-class MainActivity : AppCompatActivity() {
+class App : Application() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    @KoinExperimentalAPI
+    override fun onCreate() {
+        super.onCreate()
 
-        setContentView(R.layout.main_activity)
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            androidLogger(Level.ERROR)
+            modules(listOf(
+                NetworkModule,
+                repositoryModule,
+                ViewModelModule,
+            ))
         }
     }
 }
