@@ -7,46 +7,41 @@ import com.example.kakaobank_2021.data.res.ResVideo
 import io.reactivex.Observable
 
 class ApiRepository(private val api: ApiInterface) {
+    val api_key = "KakaoAK 6edc9797bd73ce2bba5d3e9e1132867d"
 
-    fun searchImage(keyword: String): Observable<ResImage> {
+    fun searchImage(query: String): Observable<ResImage> {
         val emptyData = listOf<ResImage.Image>()
         return Observable.just(true)
             .switchMap {
-                api.searchImage(keyword)
+                api.searchImage(api_key, query, "recency")
             }
             .map { res ->
-                Log.d("", res.body().toString())
+                Log.d("11111111", res.code().toString())
+                Log.d("11111111", res.message().toString())
                 when {
-                    res.isSuccessful -> {
-                        ResImage(Meta(res.code(), res.message()), res.body()?:emptyData)
+                    res.code() == 200 -> {
+                        res.body()
                     } else -> {
-                        ResImage(Meta(res.code(), res.message()), emptyData)
+                        ResImage(emptyData, Meta(0,0,true))
                     }
                 }
             }
     }
 
-    fun searchVideo(keyword: String): Observable<ResVideo> {
+    fun searchVideo(query: String): Observable<ResVideo> {
         val emptyData = listOf<ResVideo.Video>()
         return Observable.just(true)
             .switchMap {
-                api.searchVideo(keyword)
+                api.searchVideo(api_key, query, "recency")
             }
             .map { res ->
-                Log.d("", res.body().toString())
+                Log.d("2222222222", res.code().toString())
+                Log.d("2222222222", res.message().toString())
                 when {
-                    res.isSuccessful -> {
-//                        res.body()?.let { data ->
-//                            if (data.progresses.size > 1 &&
-//                                data.progresses[0].time > data.progresses[data.progresses.lastIndex].time) {
-//                                log.e()
-//                                data.state.text = data.progresses[0].status.text
-//                                data.progresses = data.progresses.reversed()
-//                            }
-//                        }
-                        ResVideo(Meta(res.code(), res.message()), res.body()?:emptyData)
+                    res.code() == 200 -> {
+                        res.body()
                     } else -> {
-                        ResVideo(Meta(res.code(), res.message()), emptyData)
+                        ResVideo(emptyData, Meta(0,0,true))
                     }
                 }
             }

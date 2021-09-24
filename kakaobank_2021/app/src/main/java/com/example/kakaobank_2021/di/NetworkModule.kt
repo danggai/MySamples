@@ -22,7 +22,7 @@ val NetworkModule = module {
         Retrofit.Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl( "https://developers.kakao.com/")
+            .baseUrl( "https://dapi.kakao.com/")
             .client(
                 OkHttpClient.Builder()
                     .cache(get())
