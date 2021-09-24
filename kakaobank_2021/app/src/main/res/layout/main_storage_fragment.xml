@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.example.kakaobank_2021.ui.main.storage.MainStorageFragment"/>
+            type="com.example.kakaobank_2021.ui.main.MainViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="search fragment"
+            android:text="storage fragment"
             android:gravity="center" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,11 @@
 package com.example.kakaobank_2021.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.viewpager2.widget.ViewPager2
 import com.example.kakaobank_2021.R
 import com.example.kakaobank_2021.databinding.MainFragmentBinding
 import com.example.kakaobank_2021.ui.main.search.MainSearchFragment
