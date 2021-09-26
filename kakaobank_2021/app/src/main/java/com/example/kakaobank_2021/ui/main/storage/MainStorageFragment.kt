@@ -32,8 +32,8 @@ class MainStorageFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = getViewModel()
 
-        binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.vm = viewModel
     }
 
 }

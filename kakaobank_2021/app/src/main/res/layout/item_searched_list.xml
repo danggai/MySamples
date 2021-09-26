@@ -8,6 +8,9 @@
         <variable
             name="vm"
             type="com.example.kakaobank_2021.ui.main.MainViewModel"/>
+        <variable
+            name="item"
+            type="com.example.kakaobank_2021.data.local.SearchedListItem"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,36 +22,50 @@
             android:id="@+id/iv_thumbnail"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.name}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
+            android:layout_margin="10dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.datetime}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
+            android:layout_margin="10dp"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
-            android:layout_margin="10dp"
-            />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:text="@{item.type==`I` ?`image` :`video`}"
+            app:layout_constraintRight_toLeftOf="@id/tv_state"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
             android:layout_margin="10dp"
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_save"
+            android:id="@+id/tv_state"
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:text="저장"
+            android:text="@{item._saved ?`제거` :`저장`}"
             android:textSize="18sp"
             android:gravity="center"
+            android:onClick="@{() -> vm.onClickItem(item)}"
+            android:background="?attr/selectableItemBackground"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />

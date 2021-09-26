@@ -16,8 +16,7 @@ class ApiRepository(private val api: ApiInterface) {
                 api.searchImage(api_key, query, "recency")
             }
             .map { res ->
-                Log.d("11111111", res.code().toString())
-                Log.d("11111111", res.message().toString())
+                Log.d("searchImage", res.code().toString())
                 when {
                     res.code() == 200 -> {
                         res.body()
@@ -35,8 +34,7 @@ class ApiRepository(private val api: ApiInterface) {
                 api.searchVideo(api_key, query, "recency")
             }
             .map { res ->
-                Log.d("2222222222", res.code().toString())
-                Log.d("2222222222", res.message().toString())
+                Log.d("searchVideo", res.code().toString())
                 when {
                     res.code() == 200 -> {
                         res.body()

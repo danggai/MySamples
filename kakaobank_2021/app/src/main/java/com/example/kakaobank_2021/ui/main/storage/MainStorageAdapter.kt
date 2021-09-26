@@ -1,4 +1,4 @@
-package com.example.kakaobank_2021.ui.main.search
+package com.example.kakaobank_2021.ui.main.storage
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +15,7 @@ import com.example.kakaobank_2021.databinding.ItemSearchedListBinding
 import com.example.kakaobank_2021.ui.main.MainViewModel
 
 
-class MainSearchAdapter(private val viewModel: MainViewModel) : RecyclerView.Adapter<MainSearchAdapter.ItemViewHolder>() {
+class MainStorageAdapter(private val viewModel: MainViewModel) : RecyclerView.Adapter<MainStorageAdapter.ItemViewHolder>() {
 
     private var mDataSet = mutableListOf<SearchedListItem>()
 
@@ -38,8 +38,10 @@ class MainSearchAdapter(private val viewModel: MainViewModel) : RecyclerView.Ada
     }
 
     override fun getItemId(p0: Int): Long {
-        return mDataSet[p0].thumbnail.hashCode().toLong()
-//        return 0
+        return when (mDataSet[p0]) {
+//            is TrackListItem -> (mDataSet[p0] as TrackListItem).trackEntity.trackId.toLong()
+            else -> 0
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -60,11 +62,11 @@ class MainSearchAdapter(private val viewModel: MainViewModel) : RecyclerView.Ada
 
                 holder.binding.tvDate.text = mDataSet[position].datetime
 
-//                Glide.with(holder.itemView.context)
-//                    .load(item.thumbnail)
-//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                    .apply(RequestOptions().fitCenter())
-//                    .into(holder.binding.ivThumbnail)
+                Glide.with(holder.itemView.context)
+                    .load(item.thumbnail)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .apply(RequestOptions().fitCenter())
+                    .into(holder.binding.ivThumbnail)
             }
         }
     }

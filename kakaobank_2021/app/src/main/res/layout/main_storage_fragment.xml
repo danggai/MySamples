@@ -15,11 +15,19 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.MainFragment">
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_saved_list"
+            isChanged="@{vm.lvItemSetChanged}"
+            items="@{vm.savedList}"
+            viewModel="@{vm}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="storage fragment"
-            android:gravity="center" />
+            android:layout_height="0dp"
+            android:gravity="center"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

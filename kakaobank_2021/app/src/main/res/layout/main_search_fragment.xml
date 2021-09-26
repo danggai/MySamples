@@ -48,12 +48,16 @@
 
         </LinearLayout>
 
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="search fragment"
+            items="@{vm.searchedList}"
+            viewModel="@{vm}"
+            isChanged="@{vm.lvItemSetChanged}"
             app:layout_constraintTop_toBottomOf="@+id/ll_search"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:gravity="center" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
