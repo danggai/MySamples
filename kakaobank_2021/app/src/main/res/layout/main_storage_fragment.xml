@@ -17,11 +17,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_saved_list"
-            isChanged="@{vm.lvItemSetChanged}"
-            items="@{vm.savedList}"
-            viewModel="@{vm}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            items="@{vm.searchedList}"
+            viewModel="@{vm}"
             android:gravity="center"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"

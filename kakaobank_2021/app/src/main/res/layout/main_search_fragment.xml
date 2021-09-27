@@ -29,6 +29,7 @@
                 android:id="@+id/et_keyword"
                 android:text="@={vm.keyword}"
                 android:textColor="#000000"
+                android:singleLine="true"
                 android:layout_width="0dp"
                 android:layout_weight="8"
                 android:layout_height="match_parent"/>
@@ -54,7 +55,6 @@
             android:layout_height="0dp"
             items="@{vm.searchedList}"
             viewModel="@{vm}"
-            isChanged="@{vm.lvItemSetChanged}"
             app:layout_constraintTop_toBottomOf="@+id/ll_search"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

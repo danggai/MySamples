@@ -19,18 +19,36 @@ class MainStorageAdapter(private val viewModel: MainViewModel) : RecyclerView.Ad
 
     private var mDataSet = mutableListOf<SearchedListItem>()
 
-
     companion object {
         const val TYPE_ITEM = 0
     }
 
     fun setItemList(_itemList: MutableList<SearchedListItem>) {
-        Log.d("adapter", "setitemlist")
+        mDataSet.clear()
+
+        for (item in _itemList) {
+            if (item.is_saved) {
+                mDataSet.add(item)
+            }
+        }
+
         _itemList.sortBy { it.datetime }
 
-        mDataSet.clear()
-        mDataSet.addAll(_itemList)
         notifyDataSetChanged()
+    }
+
+    fun addItem(item: SearchedListItem) {
+        if (item.is_saved) {
+            mDataSet.add(item)
+            mDataSet.sortBy { it.datetime }
+            val idx = mDataSet.indexOf(item)
+            notifyItemInserted(idx)
+        } else {
+            val idx = mDataSet.indexOf(item)
+            mDataSet.remove(item)
+            notifyItemRemoved(idx)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -38,10 +56,7 @@ class MainStorageAdapter(private val viewModel: MainViewModel) : RecyclerView.Ad
     }
 
     override fun getItemId(p0: Int): Long {
-        return when (mDataSet[p0]) {
-//            is TrackListItem -> (mDataSet[p0] as TrackListItem).trackEntity.trackId.toLong()
-            else -> 0
-        }
+        return mDataSet[p0].thumbnail.hashCode().toLong()
     }
 
     override fun getItemViewType(position: Int): Int {

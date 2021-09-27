@@ -20,7 +20,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_thumbnail"
-            android:layout_width="80dp"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -29,11 +29,13 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{item.name}"
+            android:maxLines="2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
+            app:layout_constraintRight_toLeftOf="@id/tv_state"
             android:layout_margin="10dp"
             />
 
@@ -42,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{item.datetime}"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
             android:layout_margin="10dp"

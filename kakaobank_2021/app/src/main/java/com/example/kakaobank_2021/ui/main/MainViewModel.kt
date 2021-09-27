@@ -11,6 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
+import kr.danal.app.damoum.core.Event
 
 class MainViewModel(private val api: ApiRepository) : ViewModel() {
 
@@ -20,12 +21,14 @@ class MainViewModel(private val api: ApiRepository) : ViewModel() {
     private val rxApiSearchImage: PublishSubject<Boolean> = PublishSubject.create()
     private val rxApiSearchVideo: PublishSubject<Boolean> = PublishSubject.create()
 
-    val keyword: MutableLiveData<String> = MutableLiveData<String>("")
+    val keyword: MutableLiveData<String> = MutableLiveData<String>("카카오")
 
-    var lvItemSetChanged: MutableLiveData<Boolean> = MutableLiveData(false)
+    var lvItemSetChanged: MutableLiveData<Boolean> = MutableLiveData()
 
     var searchedList: NonNullMutableLiveData<MutableList<SearchedListItem>> = NonNullMutableLiveData(mutableListOf())
-    var savedList: NonNullMutableLiveData<MutableList<SearchedListItem>> = NonNullMutableLiveData(mutableListOf())
+
+    var lvEventDataSetChanged = MutableLiveData<Event<Boolean>>()
+    var lvEventSaveItem = MutableLiveData<Event<Int>>()
 
     init {
         initRx()
@@ -85,15 +88,11 @@ class MainViewModel(private val api: ApiRepository) : ViewModel() {
     }
 
     fun onClickItem(item: SearchedListItem) {
-        if (savedList.value.contains(item)) {
-            savedList.value.remove(item)
-            item.is_saved = false
-        } else {
-            savedList.value.add(item)
-            item.is_saved = true
-        }
+        Log.d("onClick", "item")
 
-        lvItemSetChanged.value = true
+        item.is_saved = !item.is_saved
+
+        lvEventSaveItem.value = Event(searchedList.value.indexOf(item))
     }
 
     fun onClickSearch() {
@@ -104,7 +103,7 @@ class MainViewModel(private val api: ApiRepository) : ViewModel() {
         rxApiSearchImage.onNext(true)
         rxApiSearchVideo.onNext(true)
 
-        lvItemSetChanged.value = true
+        lvEventDataSetChanged.value = Event(true)
     }
 
 }

@@ -19,13 +19,11 @@ class MainSearchAdapter(private val viewModel: MainViewModel) : RecyclerView.Ada
 
     private var mDataSet = mutableListOf<SearchedListItem>()
 
-
     companion object {
         const val TYPE_ITEM = 0
     }
 
     fun setItemList(_itemList: MutableList<SearchedListItem>) {
-        Log.d("adapter", "setitemlist")
         _itemList.sortBy { it.datetime }
 
         mDataSet.clear()
@@ -39,7 +37,6 @@ class MainSearchAdapter(private val viewModel: MainViewModel) : RecyclerView.Ada
 
     override fun getItemId(p0: Int): Long {
         return mDataSet[p0].thumbnail.hashCode().toLong()
-//        return 0
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -60,11 +57,11 @@ class MainSearchAdapter(private val viewModel: MainViewModel) : RecyclerView.Ada
 
                 holder.binding.tvDate.text = mDataSet[position].datetime
 
-//                Glide.with(holder.itemView.context)
-//                    .load(item.thumbnail)
-//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                    .apply(RequestOptions().fitCenter())
-//                    .into(holder.binding.ivThumbnail)
+                Glide.with(holder.itemView.context)
+                    .load(item.thumbnail)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .apply(RequestOptions().fitCenter())
+                    .into(holder.binding.ivThumbnail)
             }
         }
     }
