@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.kakaobank_2021.R
 import com.example.kakaobank_2021.databinding.MainSearchFragmentBinding
 import com.example.kakaobank_2021.ui.main.MainViewModel
 import com.example.kakaobank_2021.ui.main.storage.MainStorageAdapter
 import kr.danal.app.damoum.core.EventObserver
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainSearchFragment : Fragment() {

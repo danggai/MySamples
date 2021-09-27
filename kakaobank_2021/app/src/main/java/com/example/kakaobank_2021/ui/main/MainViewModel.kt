@@ -26,15 +26,13 @@ class MainViewModel(private val api: ApiRepository) : ViewModel() {
     var lvItemSetChanged: MutableLiveData<Boolean> = MutableLiveData()
 
     var searchedList: NonNullMutableLiveData<MutableList<SearchedListItem>> = NonNullMutableLiveData(mutableListOf())
+    var savedList: NonNullMutableLiveData<MutableList<SearchedListItem>> = NonNullMutableLiveData(mutableListOf())
 
     var lvEventDataSetChanged = MutableLiveData<Event<Boolean>>()
     var lvEventSaveItem = MutableLiveData<Event<Int>>()
 
     init {
         initRx()
-
-        searchedList.value = mutableListOf(SearchedListItem("ㅎㅇ", "https://t1.kakaocdn.net/kakaocorp/kakaocorp/admin/news/e2ae4c6b017b00001.jpg?type=thumb&opt=C630x472","I","저장 시간",false))
-//        savedList.value = mutableListOf(SearchedListItem("ㅎㅇ", "https://t1.kakaocdn.net/kakaocorp/kakaocorp/admin/news/e2ae4c6b017b00001.jpg?type=thumb&opt=C630x472","I","저장 시간",false))
     }
 
     private fun initRx() {
@@ -50,14 +48,13 @@ class MainViewModel(private val api: ApiRepository) : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ res ->
                     Log.d("search image", "done")
-
                     val list = mutableListOf<SearchedListItem>()
 
                     for (item in res.documents) {
-                        list.add(SearchedListItem(item.display_sitename, item.thumbnail_url, "I", item.datetime, false))
+                        list.add(SearchedListItem(item.display_sitename, item.thumbnail_url, "I", item.datetime))
                     }
-
                     searchedList.value = (searchedList.value + list) as MutableList<SearchedListItem>
+
                 }, {
                     it.message?.let { msg -> Log.e("search image", msg) }
                 }).addCompositeDisposable()
@@ -74,14 +71,13 @@ class MainViewModel(private val api: ApiRepository) : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ res ->
                     Log.d("search video", "done")
-//                    Log.d("search video", res.toString())
                     val list = mutableListOf<SearchedListItem>()
 
                     for (item in res.documents) {
-                        list.add(SearchedListItem(item.title, item.thumbnail, "V", item.datetime, false))
+                        list.add(SearchedListItem(item.title, item.thumbnail, "V", item.datetime))
                     }
-
                     searchedList.value = (searchedList.value + list) as MutableList<SearchedListItem>
+
                 }, {
                     it.message?.let { msg -> Log.e("search video", msg) }
                 }).addCompositeDisposable()
@@ -90,14 +86,17 @@ class MainViewModel(private val api: ApiRepository) : ViewModel() {
     fun onClickItem(item: SearchedListItem) {
         Log.d("onClick", "item")
 
-        item.is_saved = !item.is_saved
+        if (item in savedList.value) {
+            savedList.value = (savedList.value - item) as MutableList<SearchedListItem>
+        } else {
+            savedList.value = (savedList.value + item) as MutableList<SearchedListItem>
+        }
 
         lvEventSaveItem.value = Event(searchedList.value.indexOf(item))
     }
 
     fun onClickSearch() {
         Log.d("onClick", "onClickSearch")
-        Log.d("query", keyword.value?:"null")
         searchedList.value.clear()
 
         rxApiSearchImage.onNext(true)
@@ -105,5 +104,4 @@ class MainViewModel(private val api: ApiRepository) : ViewModel() {
 
         lvEventDataSetChanged.value = Event(true)
     }
-
 }

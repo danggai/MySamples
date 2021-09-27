@@ -1,12 +1,12 @@
 package com.example.kakaobank_2021.ui.main;
 
-import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kakaobank_2021.R
 import com.example.kakaobank_2021.data.local.SearchedListItem
 import com.example.kakaobank_2021.ui.main.search.MainSearchAdapter
 import com.example.kakaobank_2021.ui.main.storage.MainStorageAdapter
+
 
 object MainBindingAdapter {
     @BindingAdapter(value = ["items", "viewModel"], requireAll = true)
@@ -17,6 +17,8 @@ object MainBindingAdapter {
     ) {
         view.adapter?.run {
             if (this is MainSearchAdapter) {
+                this.setItemList(items)
+            } else if (this is MainStorageAdapter) {
                 this.setItemList(items)
             }
         } ?: run {

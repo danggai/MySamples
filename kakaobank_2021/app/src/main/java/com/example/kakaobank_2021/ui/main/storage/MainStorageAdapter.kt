@@ -26,11 +26,7 @@ class MainStorageAdapter(private val viewModel: MainViewModel) : RecyclerView.Ad
     fun setItemList(_itemList: MutableList<SearchedListItem>) {
         mDataSet.clear()
 
-        for (item in _itemList) {
-            if (item.is_saved) {
-                mDataSet.add(item)
-            }
-        }
+        mDataSet.addAll(_itemList)
 
         _itemList.sortBy { it.datetime }
 
@@ -38,7 +34,7 @@ class MainStorageAdapter(private val viewModel: MainViewModel) : RecyclerView.Ad
     }
 
     fun addItem(item: SearchedListItem) {
-        if (item.is_saved) {
+        if (item in mDataSet) {
             mDataSet.add(item)
             mDataSet.sortBy { it.datetime }
             val idx = mDataSet.indexOf(item)
@@ -46,9 +42,9 @@ class MainStorageAdapter(private val viewModel: MainViewModel) : RecyclerView.Ad
         } else {
             val idx = mDataSet.indexOf(item)
             mDataSet.remove(item)
+            mDataSet.sortBy { it.datetime }
             notifyItemRemoved(idx)
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -74,8 +70,8 @@ class MainStorageAdapter(private val viewModel: MainViewModel) : RecyclerView.Ad
             is ItemSearchedListBinding -> {
                 holder.binding.vm = viewModel
                 holder.binding.item = mDataSet[position]
-
-                holder.binding.tvDate.text = mDataSet[position].datetime
+                holder.binding.tvDate.text = mDataSet[position].datetime.removeRange(18, mDataSet[position].datetime.length-1).replace("T", " ")
+                holder.binding.tvState.text = "저장됨"
 
                 Glide.with(holder.itemView.context)
                     .load(item.thumbnail)

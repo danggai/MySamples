@@ -54,8 +54,8 @@ class MainSearchAdapter(private val viewModel: MainViewModel) : RecyclerView.Ada
             is ItemSearchedListBinding -> {
                 holder.binding.vm = viewModel
                 holder.binding.item = mDataSet[position]
-
-                holder.binding.tvDate.text = mDataSet[position].datetime
+                holder.binding.tvDate.text = mDataSet[position].datetime.removeRange(18, mDataSet[position].datetime.length-1).replace("T", " ")
+                holder.binding.tvState.text = if (mDataSet[position] in viewModel.savedList.value) "저장됨" else ""
 
                 Glide.with(holder.itemView.context)
                     .load(item.thumbnail)

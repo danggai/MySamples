@@ -5,6 +5,5 @@ data class SearchedListItem (
     val thumbnail: String,
     val type: String,           // "V": video, "I": image
     val datetime: String,
-    var is_saved: Boolean
 ) {
 }

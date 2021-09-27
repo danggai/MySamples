@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.kakaobank_2021.R
 import com.example.kakaobank_2021.databinding.MainStorageFragmentBinding
 import com.example.kakaobank_2021.ui.main.MainViewModel
@@ -22,6 +23,10 @@ class MainStorageFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: MainStorageFragmentBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +46,7 @@ class MainStorageFragment : Fragment() {
         initLiveData()
     }
 
+
     private fun initLiveData() {
         viewModel.lvEventDataSetChanged.observe(viewLifecycleOwner, EventObserver {
             Log.d("storageFragment", "lvEventDataSetChanged")
@@ -51,7 +57,7 @@ class MainStorageFragment : Fragment() {
 
         viewModel.lvEventSaveItem.observe(viewLifecycleOwner, EventObserver { position ->
             Log.d("storageFragment", "lvEventSaveItem")
-            (binding.rvSavedList.adapter as MainStorageAdapter).addItem(viewModel.searchedList.value[position])
+            (binding.rvSavedList.adapter as MainStorageAdapter).notifyDataSetChanged()
         })
     }
 
